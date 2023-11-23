@@ -55,10 +55,9 @@ export default function App() {
 
       <Switch>
         <Route exact path="/">
-          {loading && <div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>}
-          {current && <Item data={current} />}
+          {loading && (<div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>)}
 
-          {error && <div className="bg-red-600 p-6 text-center shadow-md">HATA:{error} </div>}
+          {error && (<div className="bg-red-600 p-6 text-center shadow-md">HATA:{error} </div>)}
           {current && <Item data={current} />}
 
           <div className="flex gap-3 justify-end py-3">
@@ -80,7 +79,7 @@ export default function App() {
           <div className="flex flex-col gap-3">
             {favs.length > 0
               ? favs.map((item) => (
-                <FavItem key={item.id} id={item.id} title={item.activity} />
+                <FavItem key={item.id} id={item.id} item={item} />
               ))
               : <div className="bg-white p-6 text-center shadow-md">Henüz bir favoriniz yok</div>
             }

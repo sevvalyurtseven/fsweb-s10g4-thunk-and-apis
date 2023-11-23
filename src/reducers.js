@@ -46,7 +46,7 @@ export function myReducer(state = initial, action) {
       return { ...state, current: action.payload, error: null, loading: false };
 
     case FETCH_LOADING:
-      return { ...state, error: null, loading: true };
+      return { ...state, current: null, error: null, loading: true };
 
     case FETCH_ERROR:
       return { ...state, current: null, error: action.payload, loading: false };
