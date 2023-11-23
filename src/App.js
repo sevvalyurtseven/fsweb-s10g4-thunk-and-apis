@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, NavLink } from "react-router-dom";
 import Item from "./components/Item";
 import FavItem from "./components/FavItem";
 import { useDispatch, useSelector } from "react-redux";
-import { addFav, fetchAnother } from "./actions";
+import { addFav, fetchAnother, getFavsFromLocalStorage } from "./actions";
 
 export default function App() {
   //useSelector ile store'dan ilgili degerleri alalim:
@@ -14,6 +14,11 @@ export default function App() {
   const error = useSelector(store => store.error);
   //dispatch tanimlayalim:
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFavsFromLocalStorage());
+    dispatch(fetchAnother());
+  }, []);  //Sayfa acildiginda API'den yeni bir öge ister. (sayfanin didMounth oldugu an)
 
   //const loading = false;
   //const current = null;
@@ -51,6 +56,9 @@ export default function App() {
       <Switch>
         <Route exact path="/">
           {loading && <div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>}
+          {current && <Item data={current} />}
+
+          {error && <div className="bg-red-600 p-6 text-center shadow-md">HATA:{error} </div>}
           {current && <Item data={current} />}
 
           <div className="flex gap-3 justify-end py-3">
