@@ -17,6 +17,8 @@ const initial = {
   loading: true,
 };
 
+let notifyToast;
+
 function writeFavsToLocalStorage(state) {
   localStorage.setItem("s10g4", JSON.stringify(state.favs));
 }
@@ -53,17 +55,29 @@ export function myReducer(state = initial, action) {
       return removedFavState;
 
     case FETCH_SUCCESS:
+      toast.update(notifyToast, {
+        render: "Veriler yüklendi",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
       return { ...state, current: action.payload, error: null, loading: false };
 
     case FETCH_LOADING:
+      notifyToast = toast.loading("Yükleniyor...");
       return { ...state, current: null, error: null, loading: true };
 
     case FETCH_ERROR:
+      toast.update(notifyToast, {
+        render: "Hata: " + action.payload,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
       return { ...state, current: null, error: action.payload, loading: false };
 
     case GET_FAVS_FROM_LS:
       const favFromLS = readFavsFromLocalStorage();
-      toast.success("Daha önceki Favoriler yüklendi");
       return { ...state, favs: favFromLS ? favFromLS : [] };
 
     case CLEAR_LS:
