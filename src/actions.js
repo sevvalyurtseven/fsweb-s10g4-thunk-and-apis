@@ -13,7 +13,7 @@ export const getFavsFromLocalStorage = () => {
 };
 
 export const clearLocalStorage = () => {
-  return { type: "CLEAR_LS" };
+  return { type: CLEAR_LS };
 };
 
 export const addFav = (info) => {
