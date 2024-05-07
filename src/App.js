@@ -4,6 +4,8 @@ import Item from "./components/Item";
 import FavItem from "./components/FavItem";
 import { useDispatch, useSelector } from "react-redux";
 import { addFav, fetchAnother, getFavsFromLocalStorage } from "./actions";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   //useSelector ile store'dan ilgili degerleri alalim:
@@ -35,6 +37,18 @@ export default function App() {
 
   return (
     <div className="wrapper max-w-xl mx-auto px-4">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <nav className="flex text-2xl pb-6 pt-8 gap-2 justify-center">
         <NavLink
           to="/"

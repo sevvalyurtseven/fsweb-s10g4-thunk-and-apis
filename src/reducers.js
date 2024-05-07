@@ -7,6 +7,8 @@ import {
   GET_FAVS_FROM_LS,
 } from "./actions";
 
+import { toast } from "react-toastify";
+
 const initial = {
   favs: [],
   current: null,
@@ -27,8 +29,10 @@ export function myReducer(state = initial, action) {
     case FAV_ADD:
       const oldFav = state.favs.find((item) => item.id == action.payload.id);
       if (oldFav) {
+        toast.error("Zaten favorilere eklendi");
         return state;
       } else {
+        toast.success("Favorilere eklendi");
         const addFavState = { ...state, favs: [...state.favs, action.payload] };
         writeFavsToLocalStorage(addFavState);
         return addFavState;
@@ -40,6 +44,7 @@ export function myReducer(state = initial, action) {
         favs: state.favs.filter((item) => item.id !== action.payload),
       };
       writeFavsToLocalStorage(removedFavState);
+      toast.error("Favorilerden kaldırıldı");
       return removedFavState;
 
     case FETCH_SUCCESS:
@@ -53,6 +58,7 @@ export function myReducer(state = initial, action) {
 
     case GET_FAVS_FROM_LS:
       const favFromLS = readFavsFromLocalStorage();
+      toast.success("Daha önceki Favoriler yüklendi");
       return { ...state, favs: favFromLS ? favFromLS : [] };
 
     default:
