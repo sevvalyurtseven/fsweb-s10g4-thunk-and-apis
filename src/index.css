@@ -45,6 +45,7 @@ code {
   color: #fff;
   border: 6px solid lightcoral;
   box-shadow: 6px 6px lightseagreen;
+  overflow: hidden;
 }
 .flip-back {
   transform: rotateY(180deg);
