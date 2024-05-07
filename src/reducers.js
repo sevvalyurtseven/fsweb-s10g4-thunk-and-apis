@@ -5,6 +5,7 @@ import {
   FETCH_LOADING,
   FETCH_ERROR,
   GET_FAVS_FROM_LS,
+  CLEAR_LS,
 } from "./actions";
 
 import { toast } from "react-toastify";
@@ -18,6 +19,10 @@ const initial = {
 
 function writeFavsToLocalStorage(state) {
   localStorage.setItem("s10g4", JSON.stringify(state.favs));
+}
+
+function clearAllLocalStorage(state) {
+  localStorage.removeItem("s10g4");
 }
 
 function readFavsFromLocalStorage() {
@@ -61,6 +66,10 @@ export function myReducer(state = initial, action) {
       toast.success("Daha önceki Favoriler yüklendi");
       return { ...state, favs: favFromLS ? favFromLS : [] };
 
+    case CLEAR_LS:
+      toast.error("Tüm favoriler silindi");
+      clearAllLocalStorage();
+      return { ...state, favs: [] };
     default:
       return state;
   }

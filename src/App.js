@@ -3,7 +3,12 @@ import { Switch, Route, NavLink } from "react-router-dom";
 import Item from "./components/Item";
 import FavItem from "./components/FavItem";
 import { useDispatch, useSelector } from "react-redux";
-import { addFav, fetchAnother, getFavsFromLocalStorage } from "./actions";
+import {
+  addFav,
+  clearLocalStorage,
+  fetchAnother,
+  getFavsFromLocalStorage,
+} from "./actions";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -33,6 +38,10 @@ export default function App() {
 
   function handleFetchAnother() {
     dispatch(fetchAnother());
+  }
+
+  function handleAllClear() {
+    dispatch(clearLocalStorage());
   }
 
   return (
@@ -107,6 +116,14 @@ export default function App() {
               <div className="bg-white p-6 text-center shadow-md">
                 Henüz bir favoriniz yok
               </div>
+            )}
+            {favs.length > 0 && (
+              <button
+                onClick={handleAllClear}
+                className="transition-all px-3 py-2 block text-sm rounded bg-rose-700 text-white group-hover:opacity-100"
+              >
+                Hepsini Kaldır
+              </button>
             )}
           </div>
         </Route>
