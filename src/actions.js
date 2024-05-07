@@ -45,11 +45,11 @@ export const fetchAnother = () => (dispatch) => {
   dispatch(fetchLoading());
   axios
     .get("https://official-joke-api.appspot.com/random_joke")
-    .then((res) => {
-      console.log(res.data);
-      return dispatch(fetchSuccess(res.data));
-    }).catch(err => {
-      console.warn(err.response.message);
-      return dispatch(fetchError(err.response.message));
+    .then((response) => {
+      console.log(response.data);
+      return dispatch(fetchSuccess(response.data));
+    }).catch(error => {
+      console.warn(error.message);
+      return dispatch(fetchError(error.message));
     });
 };
