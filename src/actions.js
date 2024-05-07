@@ -30,7 +30,7 @@ export const fetchLoading = () => {
 export const fetchSuccess = (data) => {
   return {
     type: FETCH_SUCCESS,
-    payload: data
+    payload: data,
   };
 };
 
@@ -48,8 +48,9 @@ export const fetchAnother = () => (dispatch) => {
     .then((response) => {
       console.log(response.data);
       return dispatch(fetchSuccess(response.data));
-    }).catch(error => {
-      console.warn(error.message);
-      return dispatch(fetchError(error.message));
+    })
+    .catch((error) => {
+      console.warn(error.response.message);
+      return dispatch(fetchError(error.response.message));
     });
 };
